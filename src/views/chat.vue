@@ -3,7 +3,7 @@
         <div class="textbox">
             <ol>
                 <li v-for="message in messages" :key="message.id">
-                    {{new Date(message.time).toLocaleString()}} {{message.author}} {{message.text}} {{message.isSent}} {{message.id}}
+                    {{new Date(message.time).toLocaleString()}} {{message.author}} {{message.text}}
                 </li>
             </ol>
         </div>
@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         async send_message(){
-            const url = "localhost:5000"
+            const url = process.env.VUE_APP_SERVER || "localhost:8888";
             let data = {
                 time: Date.now(),
                 author: this.name,
@@ -59,8 +59,7 @@ export default {
             this.update();
         },
         async update(){
-            const url = "localhost:5000"
-            console.log(this)
+            const url = process.env.VUE_APP_SERVER || "localhost:8888";
             let Response = await fetch(
                 `//${url}/get_message?from_id=${this.messages.length > 0 ? this.messages[this.messages.length-1].id: 0}`,
                 {

@@ -5,8 +5,6 @@ from flask.json import jsonify
 
 app = Flask(__name__)
 
-
-
 class Message:
     def __init__(self, text:str, author:str, time:int):
         self.text:str = text
@@ -30,7 +28,6 @@ class Message:
         }
 
 messages: list[Message] = []    
-
 
 @app.route("/get_message", methods=["GET", "POST"])
 def main():
@@ -68,4 +65,4 @@ def after_request(answer):
     return answer
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=8888)
